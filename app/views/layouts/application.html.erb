@@ -7,10 +7,20 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav>
+        <ul>
+          <li><%= link_to "메인 페이지", home_path %></li>
+          <li><%= link_to "게시판 페이지", board_path %></li>
+          <li><%= link_to "Q&A 페이지", qna_path %></li>
+          <!-- 로그인 상태에 따라 다르게 표시할 수도 있습니다. -->
+        </ul>
+      </nav>
+    </header>
+
     <%= yield %>
   </body>
 </html>
