@@ -3,10 +3,11 @@ class CreateArticle < ActiveRecord::Migration[6.1]
     create_table :articles do |t|
       t.string :title
       t.string :text
-
+      t.string :url
       t.timestamps
     end
 
     add_reference :articles, :company, foreign_key: true
   end
 end
+
