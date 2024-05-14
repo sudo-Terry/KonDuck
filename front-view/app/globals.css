@@ -1,0 +1,6 @@
+/*
+https://stackoverflow.com/questions/76776910/unknown-at-rule-tailwind-cssunknownatrules-tailwind-error
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
