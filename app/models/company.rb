@@ -18,10 +18,20 @@ class Company < ApplicationRecord
         title = article_node.css('.elementor-post__title a').text.strip
         text = article_node.css('.elementor-post__excerpt p').text.strip
         article_url = article_node.css('.elementor-post__title a').first['href']
+
+        # checking same article by url
+        existing_article = Article.find_by(url: article_url)
+
+        if existing_article
+          puts "Skipping duplicate article: #{article_url}"
+          next
+        end
   
         # Save the article with the associated company
         company.articles.create(title: title, url: article_url, text: text)
       end
+    rescue Nokogiri::ParseError => e
+      puts "Error parsing HTML: #{e.message}"
     rescue StandardError => e
       puts "Error fetching and saving articles: #{e.message}"
     end
