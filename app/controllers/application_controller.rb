@@ -1,9 +1,7 @@
 class ApplicationController < ActionController::Base
-    def index
-    end
+  def index; end
 
-    private
+  private
 
-    def initialize_user
-    end
+  def initialize_user; end
 end
