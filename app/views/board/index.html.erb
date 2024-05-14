@@ -1,0 +1,10 @@
+게시판
+
+<% @posts.each do |post| %>
+
+    <h2><%= link_to post.title, board_path(post) %></h2>
+    <p><%= post.content %></p>
+    <p>Category: <%= post.category %></p>
+
+<% end %>
+
