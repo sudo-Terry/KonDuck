@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-    self.primary key = 'id'
+  primary key = 'id'
 
-    has_many :articles
+  has_many :articles
 end

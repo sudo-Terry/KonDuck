@@ -1,9 +1,7 @@
 class ArticleController < ApplicationController
-    def show
-    end
+  def show; end
 
-    private
+  private
 
-    def crawl_from_company
-    end
+  def crawl_from_company; end
 end
