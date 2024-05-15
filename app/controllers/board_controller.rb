@@ -1,7 +1,5 @@
 class BoardController < ApplicationController
-<<<<<<< HEAD
-  def index; end
-=======
+  
   def index
     @posts = Post.all
   end
@@ -28,5 +26,5 @@ class BoardController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :category)
   end
->>>>>>> ganghyeon
+
 end
