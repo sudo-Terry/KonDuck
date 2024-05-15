@@ -4,3 +4,4 @@ class AddCompanyColumns < ActiveRecord::Migration[6.1]
     add_column :companies, :host, :string
   end
 end
+
