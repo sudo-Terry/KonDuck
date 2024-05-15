@@ -1,5 +1,4 @@
 class BoardController < ApplicationController
-  
   def index
     @posts = Post.all
   end
@@ -26,5 +25,4 @@ class BoardController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, :category)
   end
-
 end
