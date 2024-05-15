@@ -10,23 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_05_060252) do
+ActiveRecord::Schema.define(version: 2024_05_15_072915) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.string "text"
-    t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "company_id"
+    t.string "url"
     t.index ["company_id"], name: "index_articles_on_company_id"
   end
 
   create_table "companies", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
     t.string "host"
+    t.string "name"
   end
 
   add_foreign_key "articles", "companies"
