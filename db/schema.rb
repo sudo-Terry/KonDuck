@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 2024_05_15_072915) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "host"
     t.string "name"
-    t.string "host"
   end
 
   create_table "posts", force: :cascade do |t|
