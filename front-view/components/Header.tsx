@@ -7,35 +7,35 @@ export function Header() {
   return (
     <header className="flex items-center justify-between bg-gray-900 px-4 py-3 text-white sm:px-6 lg:px-8">
       <div className="flex items-center">
-        <Link href="#">
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+        <Link href="/">
+          <div className="flex items-center cursor-pointer">
+            <MountainIcon className="h-6 w-6" />
+            <span className="sr-only">Acme Inc</span>
+          </div>
         </Link>
         <div className="ml-6 hidden sm:block">
           <div className="flex space-x-4">
-            <Link
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800"
-              href="#"
-            >
-              News
+            <Link href="/" passHref>
+              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+                메인
+              </span>
             </Link>
-            <Link
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800"
-              href="#"
-            >
-              Blog
+            <Link href="#" passHref>
+              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+                Blog
+              </span>
             </Link>
-            <Link
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800"
-              href="#"
-            >
-              Products
+            <Link href="/freeBoard" passHref>
+              {" "}
+              {/* Updated Products link to navigate to freeBoard page */}
+              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+                자유게시판
+              </span>
             </Link>
-            <Link
-              className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800"
-              href="#"
-            >
-              About
+            <Link href="#" passHref>
+              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+                About
+              </span>
             </Link>
           </div>
         </div>
@@ -52,7 +52,7 @@ export function Header() {
           />
         </div>
         <div className="ml-4">
-          <Button variant="default">Login</Button> {/* Changed to "default" */}
+          <Button variant="default">Login</Button>
         </div>
       </div>
     </header>
