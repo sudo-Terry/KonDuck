@@ -2,15 +2,7 @@ import "../app/globals.css";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  CardTitle,
-  CardDescription,
-  CardHeader,
-  CardContent,
-  CardFooter,
-  Card,
-} from "@/components/ui/card";
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { ArticleCard } from "@/components/ArticleCard";
 
 export default function Component() {
   return (
@@ -69,216 +61,48 @@ export default function Component() {
       <main className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 1</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">John Doe</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 2</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">Jane Smith</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 3</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">Sarah Lee</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 4</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">Michael Johnson</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 5</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">Emily Davis</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Article Title 6</CardTitle>
-                <CardDescription>
-                  A brief description of the article content.
-                </CardDescription>
-              </CardHeader>
-              <div className="flex items-center space-x-4 mb-4">
-                <Avatar className="h-10 w-10 ml-4">
-                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                  <AvatarFallback>JP</AvatarFallback>
-                </Avatar>
-                <div>
-                  <div className="font-medium">David Brown</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Author
-                  </div>
-                </div>
-              </div>
-              <CardContent>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  euismod, nisl eget ultricies tincidunt, nisl nisl aliquam
-                  nisl, eget aliquam nisl nisl eget nisl.
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  className="text-indigo-600 hover:text-indigo-900"
-                  href="#"
-                >
-                  Read more
-                </Link>
-              </CardFooter>
-            </Card>
+            <ArticleCard
+              title="Article Title 1"
+              description="A brief description of the article content."
+              author="John Doe"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
+            <ArticleCard
+              title="Article Title 2"
+              description="A brief description of the article content."
+              author="Jane Smith"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
+            <ArticleCard
+              title="Article Title 3"
+              description="A brief description of the article content."
+              author="Sarah Lee"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
+            <ArticleCard
+              title="Article Title 4"
+              description="A brief description of the article content."
+              author="Michael Johnson"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
+            <ArticleCard
+              title="Article Title 5"
+              description="A brief description of the article content."
+              author="Emily Davis"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
+            <ArticleCard
+              title="Article Title 6"
+              description="A brief description of the article content."
+              author="David Brown"
+              avatarSrc="/placeholder-avatar.jpg"
+              href="#"
+            />
           </div>
         </div>
       </main>
@@ -375,25 +199,6 @@ export default function Component() {
   );
 }
 
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  );
-}
-
 function SearchIcon(props) {
   return (
     <svg
@@ -410,6 +215,26 @@ function SearchIcon(props) {
     >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.3-4.3" />
+    </svg>
+  );
+}
+
+function MountainIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 2L2 22h20L12 2z" />
+      <path d="M12 6l4 14H8l4-14z" />
     </svg>
   );
 }
