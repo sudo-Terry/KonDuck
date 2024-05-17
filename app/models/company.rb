@@ -41,5 +41,6 @@ class Company < ApplicationRecord
   end
 
   has_many :articles
+  
 end
 
