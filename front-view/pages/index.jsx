@@ -1,5 +1,5 @@
-import Link from "next/link";
 import "../app/globals.css";
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,7 +9,8 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from "../components/ui/card";
+} from "@/components/ui/card";
+import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 
 export default function Component() {
   return (
@@ -75,6 +76,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">John Doe</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -98,6 +111,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">Jane Smith</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -121,6 +146,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">Sarah Lee</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -144,6 +181,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">Michael Johnson</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -167,6 +216,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">Emily Davis</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -190,6 +251,18 @@ export default function Component() {
                   A brief description of the article content.
                 </CardDescription>
               </CardHeader>
+              <div className="flex items-center space-x-4 mb-4">
+                <Avatar className="h-10 w-10 ml-4">
+                  <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
+                  <AvatarFallback>JP</AvatarFallback>
+                </Avatar>
+                <div>
+                  <div className="font-medium">David Brown</div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    Author
+                  </div>
+                </div>
+              </div>
               <CardContent>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
