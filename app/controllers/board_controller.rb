@@ -20,6 +20,12 @@ class BoardController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to board_index_path
+  end
+
   private
 
   def post_params

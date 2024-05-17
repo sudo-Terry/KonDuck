@@ -5,6 +5,8 @@
     <h2><%= link_to post.title, board_path(post) %></h2>
     <p><%= post.content %></p>
     <p>Category: <%= post.category %></p>
-
+    <%= link_to 'Delete', board_path(post), method: :delete, data: { confirm: 'Delete?' } %>
+    </div>
 <% end %>
 
+<%= link_to 'New Post', new_board_path %>

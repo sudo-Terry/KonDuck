@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   get 'qna', to: 'qna#index'
   get 'board', to: 'board#index'
 
-  resources :board, only: [:index, :create, :show, :new]
+  resources :board, only: [:index, :create, :show, :new , :destroy]
 end
