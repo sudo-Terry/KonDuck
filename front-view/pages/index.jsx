@@ -1,9 +1,25 @@
 import "../app/globals.css";
+import { useEffect, useState } from "react";
+import { fetchData } from "../utils/api";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
 
 export default function Component() {
+  /*
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      const result = await fetchData("/home");
+      setData(result);
+    };
+
+    getData();
+  }, []);
+
+  console.log(result);
+  */
   return (
     <>
       <Header />
