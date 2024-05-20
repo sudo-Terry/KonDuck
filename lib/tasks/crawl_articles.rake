@@ -3,6 +3,8 @@ namespace :crawl do
   task crawl_and_save: :environment do
     Article.fetch_and_save_articles_from_kakao_blog
     Article.fetch_and_save_articles_from_netflix_blog
+    Article.fetch_and_save_articles_from_googleAI_blog
+    Article.fetch_and_save_articles_from_googleMobile_blog
     puts 'Articles from blog crawled and saved successfully!'
   end
 end
