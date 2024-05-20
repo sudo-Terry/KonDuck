@@ -10,11 +10,11 @@ export function Header() {
       <div className="flex items-center">
         <Link href="/">
           <div className="flex items-center cursor-pointer">
-            <LogoSVG className="h-20 w-20" />
+            <LogoSVG className="h-16 w-16" />
             <span className="sr-only">DevAC</span>
           </div>
         </Link>
-        <div className="ml-6 hidden sm:block">
+        <div className="ml-10 hidden sm:block">
           <div className="flex space-x-4">
             <Link href="/" passHref>
               <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
