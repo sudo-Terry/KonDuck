@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SearchIcon, MountainIcon } from "@/components/icons";
+import { SearchIcon } from "@/components/icons";
+import LogoSVG from "@/assets/Dev-AC.svg";
 
 export function Header() {
   return (
@@ -9,31 +10,29 @@ export function Header() {
       <div className="flex items-center">
         <Link href="/">
           <div className="flex items-center cursor-pointer">
-            <MountainIcon className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
+            <LogoSVG className="h-20 w-20" />
+            <span className="sr-only">DevAC</span>
           </div>
         </Link>
         <div className="ml-6 hidden sm:block">
           <div className="flex space-x-4">
             <Link href="/" passHref>
-              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
                 메인
               </span>
             </Link>
             <Link href="#" passHref>
-              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
                 Blog
               </span>
             </Link>
             <Link href="/freeBoard" passHref>
-              {" "}
-              {/* Updated Products link to navigate to freeBoard page */}
-              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
                 자유게시판
               </span>
             </Link>
             <Link href="#" passHref>
-              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
                 About
               </span>
             </Link>
