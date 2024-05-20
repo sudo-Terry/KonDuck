@@ -21,9 +21,9 @@ export function Header() {
                 메인
               </span>
             </Link>
-            <Link href="#" passHref>
-              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
-                Blog
+            <Link href="/qnaBoard" passHref>
+              <span className="rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-800 cursor-pointer">
+                Q&A
               </span>
             </Link>
             <Link href="/freeBoard" passHref>
