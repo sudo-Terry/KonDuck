@@ -1,4 +1,4 @@
-## KonDuck
+## [KonDuck](http://localhost/)
 
 ### 1. Setting up server
 
