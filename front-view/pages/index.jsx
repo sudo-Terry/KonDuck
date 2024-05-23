@@ -4,7 +4,7 @@ import { fetchData } from "../utils/api";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
-import { CompanyTypes, CompanyTypesLabel } from "../enums/CompanyTypes";
+import { CompanyTypesLabel } from "../enums/CompanyTypes";
 
 export default function Component() {
   const [data, setData] = useState(null);
@@ -22,8 +22,6 @@ export default function Component() {
     getData();
   }, []);
 
-  console.log(data);
-
   return (
     <>
       <Header />
@@ -38,7 +36,7 @@ export default function Component() {
                   subtitle={article.created_at}
                   description={article.text}
                   author={CompanyTypesLabel[article.company_id]}
-                  avatarSrc={article.avatarSrc}
+                  company_type={article.company_id}
                   href={article.url}
                 />
               ))}
