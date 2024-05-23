@@ -11,6 +11,7 @@ import Link from "next/link";
 
 interface ArticleCardProps {
   title: string;
+  subtitle: string;
   description: string;
   author: string;
   avatarSrc: string;
@@ -19,6 +20,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({
   title,
+  subtitle,
   description,
   author,
   avatarSrc,
@@ -28,7 +30,7 @@ export function ArticleCard({
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
       <div className="flex items-center space-x-4 mb-4">
         <Avatar className="h-10 w-10 ml-4">
@@ -41,11 +43,7 @@ export function ArticleCard({
         </div>
       </div>
       <CardContent>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod,
-          nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget aliquam
-          nisl nisl eget nisl.
-        </p>
+        <p>{description}</p>
       </CardContent>
       <CardFooter>
         <Link className="text-indigo-600 hover:text-indigo-900" href={href}>
