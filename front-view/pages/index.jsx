@@ -6,7 +6,6 @@ import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
 
 export default function Component() {
-  /*
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -18,8 +17,8 @@ export default function Component() {
     getData();
   }, []);
 
-  console.log(result);
-  */
+  console.log(data);
+
   return (
     <>
       <Header />
