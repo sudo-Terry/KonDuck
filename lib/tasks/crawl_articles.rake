@@ -5,6 +5,8 @@ namespace :crawl do
     Article.fetch_and_save_articles_from_netflix_blog
     Article.fetch_and_save_articles_from_googleAI_blog
     Article.fetch_and_save_articles_from_googleMobile_blog
+    Article.fetch_and_save_articles_from_nvidiaCV_blog
+    Article.fetch_and_save_articles_from_nvidiaCloud_blog
     puts 'Articles from blog crawled and saved successfully!'
   end
 end
