@@ -1,10 +1,11 @@
 import "../app/globals.css";
 import { useEffect, useState } from "react";
-import { fetchData } from "../utils/api";
+import { fetchData } from "@/utils/api";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
-import { CompanyTypesLabel } from "../enums/CompanyTypes";
+import { CompanyTypesLabel } from "@/enums/CompanyTypes";
+import { formatDate } from "@/utils/formDate";
 
 export default function Component() {
   const [data, setData] = useState(null);
@@ -33,7 +34,7 @@ export default function Component() {
                 <ArticleCard
                   key={index}
                   title={article.title}
-                  subtitle={article.created_at}
+                  subtitle={formatDate(article.created_at)}
                   description={article.text}
                   author={CompanyTypesLabel[article.company_id]}
                   company_type={article.company_id}
