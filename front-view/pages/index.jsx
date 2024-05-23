@@ -10,8 +10,12 @@ export default function Component() {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await fetchData("/home");
-      setData(result);
+      try {
+        const result = await fetchData("/home");
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     getData();
@@ -25,48 +29,18 @@ export default function Component() {
       <main className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <ArticleCard
-              title="Article Title 1"
-              description="A brief description of the article content."
-              author="John Doe"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
-            <ArticleCard
-              title="Article Title 2"
-              description="A brief description of the article content."
-              author="Jane Smith"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
-            <ArticleCard
-              title="Article Title 3"
-              description="A brief description of the article content."
-              author="Sarah Lee"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
-            <ArticleCard
-              title="Article Title 4"
-              description="A brief description of the article content."
-              author="Michael Johnson"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
-            <ArticleCard
-              title="Article Title 5"
-              description="A brief description of the article content."
-              author="Emily Davis"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
-            <ArticleCard
-              title="Article Title 6"
-              description="A brief description of the article content."
-              author="David Brown"
-              avatarSrc="/placeholder-avatar.jpg"
-              href="#"
-            />
+            {data &&
+              data.map((article, index) => (
+                <ArticleCard
+                  key={index}
+                  title={article.title}
+                  subtitle={article.created_at}
+                  description={article.text}
+                  author={article.company_id}
+                  avatarSrc={article.avatarSrc}
+                  href={article.url}
+                />
+              ))}
           </div>
         </div>
       </main>
