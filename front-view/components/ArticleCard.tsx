@@ -8,32 +8,58 @@ import {
 } from "@/components/ui/card";
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import Link from "next/link";
+import { CompanyTypes } from "../enums/CompanyTypes";
+import Kakao_tech from "@/assets/kakao_tech.svg";
+import Netflix from "@/assets/Netflix.svg";
+import Woowahan from "@/assets/Woowahan.svg";
 
 interface ArticleCardProps {
   title: string;
+  subtitle: string;
   description: string;
   author: string;
-  avatarSrc: string;
+  company_type: CompanyTypes;
   href: string;
 }
 
+interface CompanyTypesToSvgProps {
+  company_type: CompanyTypes;
+  author: string;
+}
+
+const CompanyTypesToSvg: React.FC<CompanyTypesToSvgProps> = ({
+  company_type,
+  author,
+}) => {
+  switch (company_type) {
+    case CompanyTypes.Kakao:
+      return <Kakao_tech className="h-10 w-10" />;
+    case CompanyTypes.Netflix:
+      return <Netflix className="h-10 w-10" />;
+    case CompanyTypes.Woowahan:
+      return <Woowahan className="h-10 w-10" />;
+    default:
+      return <AvatarFallback>{author[0]}</AvatarFallback>;
+  }
+};
+
 export function ArticleCard({
   title,
+  subtitle,
   description,
   author,
-  avatarSrc,
+  company_type,
   href,
 }: ArticleCardProps) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{subtitle}</CardDescription>
       </CardHeader>
       <div className="flex items-center space-x-4 mb-4">
         <Avatar className="h-10 w-10 ml-4">
-          <AvatarImage alt={`@${author}`} src={avatarSrc} />
-          <AvatarFallback>JP</AvatarFallback>
+          <CompanyTypesToSvg company_type={company_type} author={author} />
         </Avatar>
         <div>
           <div className="font-medium">{author}</div>
@@ -41,11 +67,7 @@ export function ArticleCard({
         </div>
       </div>
       <CardContent>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod,
-          nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget aliquam
-          nisl nisl eget nisl.
-        </p>
+        <p>{description}</p>
       </CardContent>
       <CardFooter>
         <Link className="text-indigo-600 hover:text-indigo-900" href={href}>
