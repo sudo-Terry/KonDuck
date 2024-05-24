@@ -1,4 +1,3 @@
-# app/models/company.rb
 require 'selenium-webdriver'
 require 'open-uri'
 require 'nokogiri'
@@ -8,12 +7,21 @@ class Company < ApplicationRecord
 
   has_many :articles
 
-  def self.fetch_and_save_articles_from_kakao_blog
+  BLOG_SOURCES = {
+    kakao_blog: 'https://tech.kakao.com/blog/',
+    netflix_blog: 'https://netflixtechblog.com/',
+    googleAI_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=AI&page=1',
+    googleMobile_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=Mobile&page=1',
+    nvidiaCV_blog: 'https://developer.nvidia.com/blog/category/computer-vision/',
+    nvidiaCloud_blog: 'https://developer.nvidia.com/blog/category/data-center-cloud/',
+    naver_blog: 'https://d2.naver.com/helloworld?page=0'
+  }
 
-    company = Company.find_or_create_by(name: "kakao")
+  def self.fetch_and_save_articles(blog_key)
+    company_name = blog_key.to_s.split('_').first
+    company = find_or_create_by(name: company_name)
 
-    base_url = "https://tech.kakao.com"
-    url = "#{base_url}/blog/"
+    url = BLOG_SOURCES[blog_key]
 
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument('--headless')
@@ -21,11 +29,8 @@ class Company < ApplicationRecord
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    # Specify the path to the ChromeDriver executable
     driver_path = '/usr/local/bin/chromedriver'
-
     service = Selenium::WebDriver::Service.chrome(path: driver_path)
-
     driver = Selenium::WebDriver.for :chrome, options: options, service: service
 
     begin
@@ -39,44 +44,34 @@ class Company < ApplicationRecord
         html = driver.page_source
         doc = Nokogiri::HTML(html)
 
-        articles = doc.css('ul.list_post > li')
+        articles = parse_articles(doc, blog_key)
         puts "Found #{articles.size} articles"
 
-        articles.each do |article_node|
-          title = article_node.at_css('h3.tit_post')&.text&.strip
-          text = article_node.at_css('dl.dl_info > dd')&.text&.strip
-          article_relative_url = article_node.at_css('a.link_post')['href']
-          article_url = "#{base_url}#{article_relative_url}"
-
-          puts "Title: #{title}"
-          puts "URL: #{article_url}"
-          puts "Text: #{text}"
-
-          existing_article = Article.find_by(url: article_url)
+        articles.each do |article|
+          existing_article = Article.find_by(url: article[:url])
 
           if existing_article
-            puts "Skipping duplicate article: #{article_url}"
+            puts "Skipping duplicate article: #{article[:url]}"
             stop_crawling = true
             break
           end
 
-          company.articles.create(title: title, url: article_url, text: text)
+          company.articles.create(article)
         end
 
         break if stop_crawling
 
-        next_button = driver.find_elements(css: 'button.btn_pagenation')
-        puts "Next button found: #{!next_button.empty?}"
-
-        if next_button.empty?
+        next_button = find_next_button(driver, blog_key)
+        if next_button.nil?
+          puts "No more pages to load."
           break
         else
-          next_button.first.click
+          next_button.click
           sleep 2
         end
       end
 
-    rescue Nokogiri::HTML::ScanError => e
+    rescue Nokogiri::SyntaxError => e
       puts "Error parsing HTML: #{e.message}"
     rescue StandardError => e
       puts "Error fetching and saving articles: #{e.message}"
@@ -85,73 +80,67 @@ class Company < ApplicationRecord
     end
   end
 
-  def self.fetch_and_save_articles_from_netflix_blog
-    url = "https://netflixtechblog.com/"
-  
-    options = Selenium::WebDriver::Chrome::Options.new
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-  
-    # Specify the path to the ChromeDriver executable
-    driver_path = '/usr/local/bin/chromedriver'
-  
-    service = Selenium::WebDriver::Service.chrome(path: driver_path)
-    driver = Selenium::WebDriver.for :chrome, options: options, service: service
-  
-    begin
-      puts "Fetching URL: #{url}"
-      driver.navigate.to url
-      sleep 2 # Wait for the page to load
-  
-      # Find or create the company with the name "netflix"
-      company = Company.find_or_create_by(name: "netflix")
-  
-      last_height = driver.execute_script("return document.body.scrollHeight")
-
-      stop_crawling = false
-  
-      loop do
-        # Scroll down to the bottom
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        sleep 2
-  
-        new_height = driver.execute_script("return document.body.scrollHeight")
-        break if new_height == last_height
-  
-        last_height = new_height
-  
-        html = driver.page_source
-        doc = Nokogiri::HTML(html)
-  
-        doc.css('.col.u-xs-marginBottom10').each do |article_node|
-          title = article_node.css('.u-contentSansBold').text.strip
-          text = article_node.css('.u-contentSansThin').text.strip
-          article_url = article_node.css('a').first['href']
-  
-          # Check if an article with the same URL already exists
-          existing_article = Article.find_by(url: article_url)
-  
-          if existing_article
-            puts "Skipping duplicate article: #{article_url}"
-            stop_crawling = true
-            break
-          end
-  
-          # Save the article with the associated company
-          company.articles.create(title: title, url: article_url, text: text)
-        end
-  
-        break if stop_crawling
+  def self.parse_articles(doc, blog_key)
+    case blog_key
+    when :kakao_blog
+      doc.css('ul.list_post > li').map do |article_node|
+        {
+          title: article_node.at_css('h3.tit_post')&.text&.strip,
+          text: article_node.at_css('dl.dl_info > dd')&.text&.strip,
+          url: "https://tech.kakao.com#{article_node.at_css('a.link_post')['href']}"
+        }
       end
-    rescue Nokogiri::HTML::ScanError => e
-      puts "Error parsing HTML: #{e.message}"
-    rescue StandardError => e
-      puts "Error fetching and saving articles: #{e.message}"
-    ensure
-      driver.quit
+    when :netflix_blog
+      doc.css('.col.u-xs-marginBottom10').map do |article_node|
+        {
+          title: article_node.css('.u-contentSansBold').text.strip,
+          text: article_node.css('.u-contentSansThin').text.strip,
+          url: article_node.css('a').first['href']
+        }
+      end
+    when :googleAI_blog, :googleMobile_blog
+      doc.css('.search-result').map do |article_node|
+        {
+          title: article_node.css('.search-result__title a').text.strip,
+          text: article_node.css('.search-result__summary').text.strip,
+          url: "https://developers.googleblog.com#{article_node.css('.search-result__title a').first['href']}"
+        }
+      end
+    when :nvidiaCV_blog, :nvidiaCloud_blog
+      doc.css('.carousel-row-slide__inner').map do |article_node|
+        {
+          title: article_node.css('.carousel-row-slide__title h3').text.strip,
+          text: article_node.css('.carousel-row-slide__excerpt .content-m').text.strip,
+          url: article_node.css('a.carousel-row-slide__link').first['href']
+        }
+      end
+    when :naver_blog
+      doc.css('.post_article .cont_post').map do |article_node|
+        {
+          title: article_node.at_css('h2 a').text.strip,
+          text: article_node.at_css('.post_txt_wrap .post_txt').text.strip,
+          url: "https://d2.naver.com#{article_node.at_css('h2 a')['href']}"
+        }
+      end
+    else
+      []
     end
   end
 
+  def self.find_next_button(driver, blog_key)
+    case blog_key
+    when :kakao_blog
+      driver.find_elements(css: 'button.btn_pagenation').first
+    when :netflix_blog
+      nil
+    when :googleAI_blog, :googleMobile_blog
+      driver.find_elements(css: 'a.glue-button--icon[aria-label="다음"]').first
+    when :nvidiaCV_blog, :nvidiaCloud_blog
+      driver.find_elements(css: 'button.load-more-button__button').first
+    when :naver_blog
+      driver.find_elements(css: '.paginate a.btn_next').first
+    else
+      nil
+    end
+  end
 end
