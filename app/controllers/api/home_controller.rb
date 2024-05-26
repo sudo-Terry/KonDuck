@@ -1,9 +1,16 @@
 module Api
   class HomeController < ApplicationController
     def index
-      @articles = Article.all
+      @articles = Article.page(params[:page]).per(6)
 
-      render json: @articles
+      render json: {
+        articles: @articles,
+        meta: {
+          current_page: @articles.current_page,
+          total_pages: @articles.total_pages,
+          total_count: @articles.total_count
+        }
+      }
     end
   end
 end
