@@ -1,7 +1,7 @@
 module Api
   class HomeController < ApplicationController
     def index
-      @articles = Article.page(params[:page]).per(6)
+      @articles = Article.order(date: :desc).page(params[:page]).per(6)
 
       render json: {
         articles: @articles,

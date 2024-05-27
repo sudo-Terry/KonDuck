@@ -20,6 +20,9 @@ interface ArticleCardProps {
   author: string;
   company_type: CompanyTypes;
   href: string;
+  thumbnail?: string; // New prop for thumbnail
+  date: string; // New prop for date
+  blog_name: string;
 }
 
 interface CompanyTypesToSvgProps {
@@ -50,25 +53,29 @@ export function ArticleCard({
   author,
   company_type,
   href,
+  thumbnail, // New prop
+  date, // New prop
+  blog_name,
 }: ArticleCardProps) {
   return (
     <Card>
       <CardHeader>
+        {thumbnail && <img src={thumbnail} alt={title} className="w-full h-auto" />}
         <CardTitle>{title}</CardTitle>
-        <CardDescription>{subtitle}</CardDescription>
+        <CardDescription>{date}</CardDescription>
       </CardHeader>
       <div className="flex items-center space-x-4 mb-4">
         <Avatar className="h-10 w-10 ml-4">
           <CompanyTypesToSvg company_type={company_type} author={author} />
         </Avatar>
         <div>
-          <div className="font-medium">{author}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">Author</div>
+          <div className="font-medium">{blog_name}</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">{author}</div>
         </div>
       </div>
-      <CardContent>
+      {/* <CardContent>
         <p>{description}</p>
-      </CardContent>
+      </CardContent> */}
       <CardFooter>
         <Link className="text-indigo-600 hover:text-indigo-900" href={href}>
           Read more

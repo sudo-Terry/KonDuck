@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_15_072915) do
+ActiveRecord::Schema.define(version: 2024_05_27_095926) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -19,6 +19,10 @@ ActiveRecord::Schema.define(version: 2024_05_15_072915) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "company_id"
     t.string "url"
+    t.string "thumbnail"
+    t.string "author"
+    t.datetime "date"
+    t.string "blog_name"
     t.index ["company_id"], name: "index_articles_on_company_id"
   end
 

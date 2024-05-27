@@ -87,15 +87,30 @@ class Company < ApplicationRecord
         {
           title: article_node.at_css('h3.tit_post')&.text&.strip,
           text: article_node.at_css('dl.dl_info > dd')&.text&.strip,
-          url: "https://tech.kakao.com#{article_node.at_css('a.link_post')['href']}"
+          url: "https://tech.kakao.com#{article_node.at_css('a.link_post')['href']}",
+          thumbnail: article_node.at_css('div.box_thumb img')['src'],
+          author: article_node.css('dl.dl_info dd').first.text.strip,
+          date: article_node.css('dl.dl_info dd')[1].text.strip,
+          blog_name: "KAKAO"
         }
       end
     when :netflix_blog
       doc.css('.col.u-xs-marginBottom10').map do |article_node|
+        thumbnail_node = article_node.previous_element.at_css('a.u-block.u-xs-height170, a.u-height350')
+        next if thumbnail_node.nil? # Skip article if there is no thumbnail node
+        style_attribute = thumbnail_node&.[]('style')
+        match_data = style_attribute&.match(/url\((.*?)\)/)
+        thumbnail_url = match_data ? match_data[1].gsub(/['"]/, '') : nil
+        next if thumbnail_url.nil? # Skip article if there is no thumbnail URL
+    
         {
           title: article_node.css('.u-contentSansBold').text.strip,
           text: article_node.css('.u-contentSansThin').text.strip,
-          url: article_node.css('a').first['href']
+          url: article_node.css('a').first['href'],
+          thumbnail: thumbnail_url,
+          author: "Netflix TechBlog Team",
+          date: article_node.css('time').attr('datetime').value,
+          blog_name: "NETFLIX"
         }
       end
     when :googleAI_blog, :googleMobile_blog

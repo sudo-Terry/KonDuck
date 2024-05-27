@@ -8,14 +8,14 @@ import { CompanyTypesLabel } from "@/enums/CompanyTypes";
 import { formatDate } from "@/utils/formDate";
 
 export default function Component() {
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [data, setData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const result = await fetchData(`/home?page=${page}`);
+        const result = await fetchData(`/home?page=${currentPage}`);
         setData(result.articles);
         setTotalPages(result.meta.total_pages);
       } catch (error) {
@@ -24,7 +24,19 @@ export default function Component() {
     };
 
     getData();
-  }, [page]);
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <>
@@ -32,38 +44,31 @@ export default function Component() {
       <main className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {data.length > 0 ? (
+            {data && data.length > 0 ? (
               data.map((article, index) => (
                 <ArticleCard
                   key={index}
                   title={article.title}
-                  subtitle={formatDate(article.created_at)}
-                  description={article.text}
-                  author={CompanyTypesLabel[article.company_id]}
-                  company_type={article.company_id}
+                  subtitle={CompanyTypesLabel[article.company_id]}
+                  // description={article.text}
+                  author={article.author}
+                  date={formatDate(article.date)}
                   href={article.url}
+                  thumbnail={article.thumbnail}
+                  blog_name={article.blog_name}
+                  company_type={article.company_id}
                 />
               ))
             ) : (
               <p>No articles found.</p>
             )}
           </div>
-          <div className="flex justify-between mt-4">
-            <button
-              disabled={page === 1}
-              onClick={() => setPage(page - 1)}
-              className="btn"
-            >
+          <div className="pagination">
+            <button onClick={handlePrevPage} disabled={currentPage === 1}>
               Previous
             </button>
-            <span>
-              Page {page} of {totalPages}
-            </span>
-            <button
-              disabled={page === totalPages}
-              onClick={() => setPage(page + 1)}
-              className="btn"
-            >
+            <span>Page {currentPage} of {totalPages}</span>
+            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
               Next
             </button>
           </div>
