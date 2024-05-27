@@ -1,28 +1,57 @@
 class BoardController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(3)
+
+    render json: {
+      articles: @posts,
+      meta: {
+        current_page: @posts.current_page,
+        total_pages: @posts.total_pages,
+        total_count: @posts.total_count
+      }
+    }
   end
 
   def new
-    @post = Post.new
+    @post = Post.
+    render json: @post
   end
 
   def create
     @post = Post.new(post_params)
     if @post.save
-      redirect_to board_path(@post)
+      render json: @post, status: :created, location: @post
     else
-      render 'new'
+      render json: @post.errors, status: :unprocessable_entity
     end
   end
-
+  
   def show
     @post = Post.find(params[:id])
   end
 
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      render json: @post
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      render json: { message: "Post successfully deleted." }, status: :ok
+    else
+      render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :category)
+    params.require(:post).permit(:title, :content)
   end
 end
