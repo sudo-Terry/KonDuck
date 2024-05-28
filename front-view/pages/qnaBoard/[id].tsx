@@ -1,4 +1,3 @@
-import "../../app/globals.css";
 import { useRouter } from "next/router";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
