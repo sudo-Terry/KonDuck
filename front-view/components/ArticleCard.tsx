@@ -85,7 +85,7 @@ export function ArticleCard({
       </div>
       <CardFooter>
         <Link className="text-indigo-600 hover:text-indigo-900" href={href}>
-          Read more
+          본문 보기
         </Link>
       </CardFooter>
     </Card>

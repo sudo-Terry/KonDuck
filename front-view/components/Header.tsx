@@ -1,13 +1,60 @@
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SearchIcon } from "@/components/icons";
+import { SearchIcon, HamburgerIcon } from "@/components/icons";
+import {
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenu,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+
 import LogoSVG from "@/assets/Dev-AC.svg";
 
 export function Header() {
   return (
     <header className="flex items-center justify-between bg-gray-900 px-4 py-3 text-white sm:px-6 lg:px-8">
       <div className="flex items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className="rounded-full sm:hidden"
+              size="icon"
+              variant="ghost"
+            >
+              <HamburgerIcon className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <Link
+                className="block px-4 py-2 text-sm hover:bg-gray-800"
+                href="/"
+              >
+                메인
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                className="block px-4 py-2 text-sm hover:bg-gray-800"
+                href="/qnaBoard"
+              >
+                Q&A
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link
+                className="block px-4 py-2 text-sm hover:bg-gray-800"
+                href="/freeBoard"
+              >
+                자유게시판
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link href="/">
           <div className="flex items-center cursor-pointer">
             <LogoSVG className="h-16 w-16" />
@@ -31,16 +78,11 @@ export function Header() {
                 자유게시판
               </span>
             </Link>
-            <Link href="#" passHref>
-              <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
-                About
-              </span>
-            </Link>
           </div>
         </div>
       </div>
       <div className="flex items-center">
-        <div className="relative mx-auto w-full max-w-lg sm:mx-0">
+        <div className="relative mx-auto w-full max-w-lg sm:mx-0 hidden sm:block">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <SearchIcon className="h-5 w-5 text-gray-400" />
           </div>
