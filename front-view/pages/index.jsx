@@ -2,29 +2,43 @@ import "../app/globals.css";
 import {
   PaginationPrevious,
   PaginationItem,
-  PaginationLink,
-  PaginationEllipsis,
   PaginationNext,
   PaginationContent,
   Pagination,
 } from "@/components/ui/pagination";
+import {
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenu,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 import { useEffect, useState } from "react";
 import { fetchData } from "@/utils/api";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { FilterIcon } from "@/components/icons";
 import { ArticleCard } from "@/components/ArticleCard";
-import { CompanyTypesLabel } from "@/enums/CompanyTypes";
+import { CompanyTypes, CompanyTypesLabel } from "@/enums/CompanyTypes";
 import { formatDate } from "@/utils/formDate";
 
 export default function Component() {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedCompanies, setSelectedCompanies] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const result = await fetchData(`/home?page=${currentPage}`);
+        const companyQuery = selectedCompanies.length
+          ? `&company_id=${selectedCompanies.join(",")}`
+          : "";
+        const result = await fetchData(
+          `/home?page=${currentPage}${companyQuery}`
+        );
         setData(result.articles);
         setTotalPages(result.meta.total_pages);
       } catch (error) {
@@ -33,7 +47,7 @@ export default function Component() {
     };
 
     getData();
-  }, [currentPage]);
+  }, [currentPage, selectedCompanies]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -45,6 +59,16 @@ export default function Component() {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+
+  const handleCompanySelect = (companyId) => {
+    setSelectedCompanies((prevSelected) => {
+      if (prevSelected.includes(companyId)) {
+        return prevSelected.filter((id) => id !== companyId);
+      } else {
+        return [...prevSelected, companyId];
+      }
+    });
   };
 
   return (
@@ -59,7 +83,6 @@ export default function Component() {
                   key={index}
                   title={article.title}
                   subtitle={CompanyTypesLabel[article.company_id]}
-                  // description={article.text}
                   author={article.author}
                   date={formatDate(article.date)}
                   href={article.url}
@@ -94,6 +117,33 @@ export default function Component() {
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
+          </div>
+          <div className="mt-10">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="w-full" variant="outline">
+                  <FilterIcon className="mr-2 h-4 w-4" />
+                  Filter by Company
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuLabel>회사 목록</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {Object.entries(CompanyTypesLabel).map(([id, label]) => (
+                  <DropdownMenuItem
+                    key={id}
+                    onClick={() => handleCompanySelect(parseInt(id))}
+                    className={
+                      selectedCompanies.includes(parseInt(id))
+                        ? "bg-blue-200"
+                        : ""
+                    }
+                  >
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </main>
