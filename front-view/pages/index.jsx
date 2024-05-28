@@ -1,4 +1,3 @@
-import "../app/globals.css";
 import {
   PaginationPrevious,
   PaginationItem,
