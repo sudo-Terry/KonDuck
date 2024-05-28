@@ -37,7 +37,9 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -53,7 +55,9 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -68,7 +72,9 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -84,7 +90,9 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -100,7 +108,9 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -115,31 +125,18 @@ const QnABoardPage: React.FC = () => {
                     </p>
                   </div>
                   <div>
-                    <Button size="sm">View</Button>
+                    <Link href="/qnaBoard/1" passHref>
+                      <Button size="sm">View</Button>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-between w-full mt-10">
               <Pagination>
-                <PaginationContent>
+                <PaginationContent className="flex justify-between items-center">
                   <PaginationItem>
                     <PaginationPrevious href="#" />
-                  </PaginationItem>
-                  <PaginationItem>
-                    {/* Will be deprecated
-                      <PaginationLink href="#" isActive>1</PaginationLink>
-                    */}
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationEllipsis />
                   </PaginationItem>
                   <PaginationItem>
                     <PaginationNext href="#" />
