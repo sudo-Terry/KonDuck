@@ -14,42 +14,44 @@ const FreeBoardPage: React.FC = () => {
             <div className="flex items-start space-x-4">
               <Avatar className="h-10 w-10 mr-4">
                 <AvatarImage alt="@shadcn" src="/placeholder-avatar.jpg" />
-                <AvatarFallback>JP</AvatarFallback>
+                <AvatarFallback>홍</AvatarFallback>
               </Avatar>
               <div className="flex-1">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-medium">John Doe</div>
+                    <div className="font-medium">홍길동</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                      Marketing Manager
+                      한달 전
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold">
-                      Announcement: New Product Launch
-                    </h3>
+                    <h2 className="text-lg font-bold">
+                      과제가 너무 많아서 죽을 것 같습니다ㅠㅠ
+                    </h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      We are excited to announce the launch of our latest
-                      product. Check it out now!
+                      4개의 댓글
                     </p>
                   </div>
                 </div>
                 <div className="mt-4">
                   <p>
-                    We are thrilled to announce the launch of our latest
-                    product, the Acme Supercharger. This innovative device will
-                    revolutionize the way you power your home. With its
-                    cutting-edge technology and sleek design, the Acme
-                    Supercharger is a must-have for anyone looking to upgrade
-                    their home's energy efficiency.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
                   </p>
+                  <p>...</p>
                 </div>
                 <div className="mt-4">
                   <Link
                     className="text-indigo-600 hover:text-indigo-900"
-                    href="#"
+                    href="/freeBoard/1"
                   >
-                    Learn more
+                    더보기
                   </Link>
                 </div>
               </div>
