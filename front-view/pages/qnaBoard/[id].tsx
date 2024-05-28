@@ -59,6 +59,52 @@ const QnADetailPage: React.FC = () => {
                 <div className="border-t border-gray-200 dark:border-gray-800 pt-4">
                   <h3 className="text-lg font-medium mb-2">댓글</h3>
                   <div className="space-y-4">
+                    <div className="flex items-start gap-4 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage alt="이길동" src="/placeholder-user.jpg" />
+                        <AvatarFallback>이</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          질문자 채택
+                        </p>
+                        <h4 className="font-medium">이길동</h4>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          3시간 전
+                        </p>
+                        <div className="prose prose-stone mt-2">
+                          <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillum dolore
+                            eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia
+                            deserunt mollit anim id est laborum.
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Button
+                            className="w-4 h-4 hover:bg-transparent text-stone-400 hover:text-stone-900"
+                            size="icon"
+                            variant="ghost"
+                          >
+                            <ThumbsUpIcon className="w-4 h-4" />
+                            <span className="sr-only">좋아요</span>
+                          </Button>
+                          <Button
+                            className="w-4 h-4 hover:bg-transparent text-stone-400 hover:text-stone-900"
+                            size="icon"
+                            variant="ghost"
+                          >
+                            <ThumbsDownIcon className="w-4 h-4" />
+                            <span className="sr-only">싫어요</span>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                     <div className="flex items-start gap-4">
                       <Avatar className="w-10 h-10">
                         <AvatarImage alt="김길동" src="/placeholder-user.jpg" />
