@@ -121,7 +121,7 @@ export default function Component() {
           <div className="mt-10">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="w-full" variant="outline">
+                <Button className="w-full dark:text-white" variant="outline">
                   <FilterIcon className="mr-2 h-4 w-4" />
                   Filter by Company
                 </Button>
