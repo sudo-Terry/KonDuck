@@ -94,29 +94,6 @@ export default function Component() {
               <p>No articles found.</p>
             )}
           </div>
-          <div className="pagination w-full mt-10">
-            <Pagination>
-              <PaginationContent className="flex justify-between items-center">
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={handlePrevPage}
-                    disabled={currentPage === 1}
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <span>
-                    Page {currentPage} of {totalPages}
-                  </span>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
           <div className="mt-10">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -143,6 +120,29 @@ export default function Component() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+          </div>
+          <div className="pagination w-full mt-10">
+            <Pagination>
+              <PaginationContent className="flex justify-between items-center">
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <span>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         </div>
       </main>
