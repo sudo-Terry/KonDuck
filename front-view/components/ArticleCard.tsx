@@ -20,8 +20,8 @@ interface ArticleCardProps {
   author: string;
   company_type: CompanyTypes;
   href: string;
-  thumbnail?: string; // New prop for thumbnail
-  date: string; // New prop for date
+  thumbnail?: string;
+  date: string;
   blog_name: string;
 }
 
@@ -53,14 +53,22 @@ export function ArticleCard({
   author,
   company_type,
   href,
-  thumbnail, // New prop
-  date, // New prop
+  thumbnail,
+  date,
   blog_name,
 }: ArticleCardProps) {
   return (
     <Card>
       <CardHeader>
-        {thumbnail && <img src={thumbnail} alt={title} className="w-full h-auto" />}
+        {thumbnail && (
+          <div className="overflow-hidden mb-3">
+            <img
+              src={thumbnail}
+              alt={title}
+              className="w-full h-auto object-cover max-h-60"
+            />
+          </div>
+        )}
         <CardTitle>{title}</CardTitle>
         <CardDescription>{date}</CardDescription>
       </CardHeader>
@@ -70,12 +78,11 @@ export function ArticleCard({
         </Avatar>
         <div>
           <div className="font-medium">{blog_name}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">{author}</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            {author}
+          </div>
         </div>
       </div>
-      {/* <CardContent>
-        <p>{description}</p>
-      </CardContent> */}
       <CardFooter>
         <Link className="text-indigo-600 hover:text-indigo-900" href={href}>
           Read more

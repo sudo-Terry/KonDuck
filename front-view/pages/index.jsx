@@ -1,4 +1,13 @@
 import "../app/globals.css";
+import {
+  PaginationPrevious,
+  PaginationItem,
+  PaginationLink,
+  PaginationEllipsis,
+  PaginationNext,
+  PaginationContent,
+  Pagination,
+} from "@/components/ui/pagination";
 import { useEffect, useState } from "react";
 import { fetchData } from "@/utils/api";
 import { Header } from "@/components/Header";
@@ -63,14 +72,28 @@ export default function Component() {
               <p>No articles found.</p>
             )}
           </div>
-          <div className="pagination">
-            <button onClick={handlePrevPage} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
-            </button>
+          <div className="pagination w-full mt-10">
+            <Pagination>
+              <PaginationContent className="flex justify-between items-center">
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <span>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         </div>
       </main>
@@ -78,4 +101,3 @@ export default function Component() {
     </>
   );
 }
-
