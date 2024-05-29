@@ -13,25 +13,25 @@ namespace :crawl do
 
   desc 'Crawl articles from Google AI blog'
   task googleAI_blog: :environment do
-    Company.fetch_and_save_articles(:googleAI_blog)
+    Company.fetch_and_save_articles(:google_AI_blog)
     puts 'Articles from Google AI blog crawled and saved successfully!'
   end
 
   desc 'Crawl articles from Google Mobile blog'
   task googleMobile_blog: :environment do
-    Company.fetch_and_save_articles(:googleMobile_blog)
+    Company.fetch_and_save_articles(:google_Mobile_blog)
     puts 'Articles from Google Mobile blog crawled and saved successfully!'
   end
 
   desc 'Crawl articles from Nvidia Computer Vision blog'
   task nvidiaCV_blog: :environment do
-    Company.fetch_and_save_articles(:nvidiaCV_blog)
+    Company.fetch_and_save_articles(:nvidia_ComputerVision_blog)
     puts 'Articles from Nvidia Computer Vision blog crawled and saved successfully!'
   end
 
   desc 'Crawl articles from Nvidia Cloud blog'
   task nvidiaCloud_blog: :environment do
-    Company.fetch_and_save_articles(:nvidiaCloud_blog)
+    Company.fetch_and_save_articles(:nvidia_Cloud_blog)
     puts 'Articles from Nvidia Cloud blog crawled and saved successfully!'
   end
 
