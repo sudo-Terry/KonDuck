@@ -28,7 +28,7 @@ module Api
         render json: @post.errors, status: :unprocessable_entity
       end
     end
-    
+
     def show
       @post = Post.find(params[:id])
       render json: @post
@@ -55,17 +55,7 @@ module Api
     private
 
     def post_params
-      params.permit(:title, :content)
+      params.require(:post).permit(:title, :content, :user_name, :user_password)
     end
-  end
-
-  def show
-    @post = Post.find(params[:id])
-  end
-
-  private
-
-  def post_params
-    params.require(:post).permit(:title, :content, :category)
   end
 end
