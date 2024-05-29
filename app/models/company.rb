@@ -97,11 +97,9 @@ class Company < ApplicationRecord
     when :netflix_blog
       doc.css('.col.u-xs-marginBottom10').map do |article_node|
         thumbnail_node = article_node.previous_element.at_css('a.u-block.u-xs-height170, a.u-height350')
-        next if thumbnail_node.nil? # Skip article if there is no thumbnail node
         style_attribute = thumbnail_node&.[]('style')
         match_data = style_attribute&.match(/url\((.*?)\)/)
         thumbnail_url = match_data ? match_data[1].gsub(/['"]/, '') : nil
-        next if thumbnail_url.nil? # Skip article if there is no thumbnail URL
     
         {
           title: article_node.css('.u-contentSansBold').text.strip,
