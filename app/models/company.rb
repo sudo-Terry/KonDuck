@@ -10,15 +10,16 @@ class Company < ApplicationRecord
   BLOG_SOURCES = {
     kakao_blog: 'https://tech.kakao.com/blog/',
     netflix_blog: 'https://netflixtechblog.com/',
-    googleAI_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=AI&page=1',
-    googleMobile_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=Mobile&page=1',
-    nvidiaCV_blog: 'https://developer.nvidia.com/blog/category/computer-vision/',
-    nvidiaCloud_blog: 'https://developer.nvidia.com/blog/category/data-center-cloud/',
+    google_AI_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=AI&page=1',
+    google_Mobile_blog: 'https://developers.googleblog.com/ko/search/?technology_categories=Mobile&page=1',
+    nvidia_ComputerVision_blog: 'https://developer.nvidia.com/blog/category/computer-vision/',
+    nvidia_Cloud_blog: 'https://developer.nvidia.com/blog/category/data-center-cloud/',
     naver_blog: 'https://d2.naver.com/helloworld?page=0'
   }
 
   def self.fetch_and_save_articles(blog_key)
-    company_name = blog_key.to_s.split('_').first
+    parts = blog_key.to_s.split('_')
+    company_name = parts.length > 2 ? parts[0..1].join('_') : parts.first
     company = find_or_create_by(name: company_name)
 
     url = BLOG_SOURCES[blog_key]
@@ -84,11 +85,14 @@ class Company < ApplicationRecord
     case blog_key
     when :kakao_blog
       doc.css('ul.list_post > li').map do |article_node|
+        thumbnail_url = article_node.at_css('div.box_thumb img')['src']
+        thumbnail = thumbnail_url.empty? ? nil : thumbnail_url
+        
         {
           title: article_node.at_css('h3.tit_post')&.text&.strip,
           text: article_node.at_css('dl.dl_info > dd')&.text&.strip,
           url: "https://tech.kakao.com#{article_node.at_css('a.link_post')['href']}",
-          thumbnail: article_node.at_css('div.box_thumb img')['src'],
+          thumbnail: thumbnail,
           author: article_node.css('dl.dl_info dd').first.text.strip,
           date: article_node.css('dl.dl_info dd')[1].text.strip,
           blog_name: "KAKAO"
@@ -111,15 +115,43 @@ class Company < ApplicationRecord
           blog_name: "NETFLIX"
         }
       end
-    when :googleAI_blog, :googleMobile_blog
+    when :google_AI_blog
       doc.css('.search-result').map do |article_node|
+        date_text = article_node.css('.search-result__eyebrow').text.strip
+        date_part = date_text.split('/').first.strip
+
+        thumbnail_url = article_node.css('.search-result__featured-img').first['src']
+        thumbnail = thumbnail_url.empty? ? nil : thumbnail_url
+
         {
           title: article_node.css('.search-result__title a').text.strip,
           text: article_node.css('.search-result__summary').text.strip,
-          url: "https://developers.googleblog.com#{article_node.css('.search-result__title a').first['href']}"
+          url: "https://developers.googleblog.com#{article_node.css('.search-result__title a').first['href']}",
+          thumbnail: thumbnail,
+          author: "Google AI Blog Team",
+          date: date_part,
+          blog_name: "Google AI"
         }
       end
-    when :nvidiaCV_blog, :nvidiaCloud_blog
+    when :google_Mobile_blog
+      doc.css('.search-result').map do |article_node|
+        date_text = article_node.css('.search-result__eyebrow').text.strip
+        date_part = date_text.split('/').first.strip
+
+        thumbnail_url = article_node.css('.search-result__featured-img').first['src']
+        thumbnail = thumbnail_url.empty? ? nil : thumbnail_url
+
+        {
+          title: article_node.css('.search-result__title a').text.strip,
+          text: article_node.css('.search-result__summary').text.strip,
+          url: "https://developers.googleblog.com#{article_node.css('.search-result__title a').first['href']}",
+          thumbnail: thumbnail,
+          author: "Google Mobile Blog Team",
+          date: date_part,
+          blog_name: "Google Mobile"
+        }
+      end
+    when :nvidia_ComputerVision_blog, :nvidia_Cloud_blog
       doc.css('.carousel-row-slide__inner').map do |article_node|
         {
           title: article_node.css('.carousel-row-slide__title h3').text.strip,
