@@ -4,10 +4,10 @@ module Api
 
     
     def index
-      @qnas = Qna.page(params[:page]).per(5)
+      @qnas = Qna.page(params[:page]).per(6)
 
       render json: {
-        posts: @qnas,
+        qnas: @qnas,
         meta: {
           current_page: @qnas.current_page,
           total_pages: @qnas.total_pages,
