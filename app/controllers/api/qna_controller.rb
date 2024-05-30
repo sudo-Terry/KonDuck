@@ -57,7 +57,7 @@ module Api
     private
 
     def qna_params
-      params.permit(:title, :content)
+      params.require(:qna).permit(:title, :content, :user_name, :user_password)
     end
   end
 end
