@@ -67,8 +67,16 @@ class Company < ApplicationRecord
           puts "No more pages to load."
           break
         else
-          next_button.click
+          begin
+            driver.execute_script("arguments[0].scrollIntoView(true);", next_button)
+            sleep 1
+            next_button.click
+          rescue Selenium::WebDriver::Error::ElementClickInterceptedError
+            puts "Click intercepted, trying JavaScript click"
+            driver.execute_script("arguments[0].click();", next_button)
+          end
           sleep 2
+          
         end
       end
 
@@ -151,20 +159,53 @@ class Company < ApplicationRecord
           blog_name: "Google Mobile"
         }
       end
-    when :nvidia_ComputerVision_blog, :nvidia_Cloud_blog
+    when :nvidia_ComputerVision_blog
       doc.css('.carousel-row-slide__inner').map do |article_node|
+        
+        thumbnail_url = article_node.css('.carousel-row-slide__thumbnail img').first['src']
+        thumbnail = thumbnail_url.empty? ? nil : thumbnail_url
+
         {
           title: article_node.css('.carousel-row-slide__title h3').text.strip,
           text: article_node.css('.carousel-row-slide__excerpt .content-m').text.strip,
-          url: article_node.css('a.carousel-row-slide__link').first['href']
+          url: article_node.css('a.carousel-row-slide__link').first['href'],
+          thumbnail: thumbnail,
+          author: "NVIDIA Tech Blog Team",
+          date: article_node.css('.carousel-row-slide__publication-date span.post-published-date').text.strip,
+          blog_name: "Computer Vision & Videio Analytics"
+        }
+      end
+    when :nvidia_Cloud_blog
+      doc.css('.carousel-row-slide__inner').map do |article_node|
+
+        thumbnail_url = article_node.css('.carousel-row-slide__thumbnail img').first['src']
+        thumbnail = thumbnail_url.empty? ? nil : thumbnail_url
+
+        {
+          title: article_node.css('.carousel-row-slide__title h3').text.strip,
+          text: article_node.css('.carousel-row-slide__excerpt .content-m').text.strip,
+          url: article_node.css('a.carousel-row-slide__link').first['href'],
+          thumbnail: thumbnail,
+          author: "NVIDIA Tech Blog Team",
+          date: article_node.css('.carousel-row-slide__publication-date span.post-published-date').text.strip,
+          blog_name: "Data Center & Cloud"
         }
       end
     when :naver_blog
       doc.css('.post_article .cont_post').map do |article_node|
+
+        thumbnail_node = article_node.css('.cont_img img').first
+        thumbnail_url = thumbnail_node ? thumbnail_node['src'] : nil
+        thumbnail = thumbnail_url.nil? || thumbnail_url.empty? ? nil : "https://d2.naver.com#{thumbnail_url}"
+
         {
           title: article_node.at_css('h2 a').text.strip,
           text: article_node.at_css('.post_txt_wrap .post_txt').text.strip,
-          url: "https://d2.naver.com#{article_node.at_css('h2 a')['href']}"
+          url: "https://d2.naver.com#{article_node.at_css('h2 a')['href']}",
+          thumbnail: thumbnail,
+          author: "D2 Blog Team",
+          date: article_node.css('dl dd').first.text.strip,
+          blog_name: "NAVER D2"
         }
       end
     else
@@ -178,11 +219,16 @@ class Company < ApplicationRecord
       driver.find_elements(css: 'button.btn_pagenation').first
     when :netflix_blog
       nil
-    when :googleAI_blog, :googleMobile_blog
+    when :google_AI_blog, :google_Mobile_blog
       driver.find_elements(css: 'a.glue-button--icon[aria-label="다음"]').first
-    when :nvidiaCV_blog, :nvidiaCloud_blog
-      driver.find_elements(css: 'button.load-more-button__button').first
+    when :nvidia_ComputerVision_blog, :nvidia_Cloud_blog
+      driver.find_elements(css: 'button.js-load-more-button__button').first
     when :naver_blog
+      selected_btn = driver.find_elements(css: '.paginate a.btn_num.select').first
+      if selected_btn
+        next_btn = selected_btn.find_element(xpath: 'following-sibling::a[@class="btn_num"]')
+        return next_btn if next_btn
+      end
       driver.find_elements(css: '.paginate a.btn_next').first
     else
       nil
