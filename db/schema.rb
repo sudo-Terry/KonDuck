@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_28_164829) do
+ActiveRecord::Schema.define(version: 2024_05_30_160757) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -53,6 +53,25 @@ ActiveRecord::Schema.define(version: 2024_05_28_164829) do
     t.string "user_password"
   end
 
+  create_table "qna_answers", force: :cascade do |t|
+    t.integer "qna_id"
+    t.text "answer"
+    t.string "user_name"
+    t.string "user_password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "qnas", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "user_name"
+    t.string "user_password"
+  end
+
   add_foreign_key "articles", "companies"
   add_foreign_key "post_comments", "posts"
+  add_foreign_key "qna_answers", "qnas"
 end
