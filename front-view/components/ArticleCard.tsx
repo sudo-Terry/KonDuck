@@ -11,7 +11,12 @@ import Link from "next/link";
 import { CompanyTypes } from "../enums/CompanyTypes";
 import Kakao_tech from "@/assets/kakao_tech.svg";
 import Netflix from "@/assets/Netflix.svg";
-import Woowahan from "@/assets/Woowahan.svg";
+import Google_AI from "@/assets/GoogleAI.svg";
+import Google_Mobile from "@/assets/GoogleAI.svg";
+import Google_Web_Cloud from "@/assets/GoogleAI.svg";
+import Nvidia_ComputerVision from "@/assets/Nvidia.svg";
+import Nvidia_Cloud from "@/assets/Nvidia.svg";
+import Naver_D2 from "@/assets/naver.svg";
 
 interface ArticleCardProps {
   title: string;
@@ -39,8 +44,20 @@ const CompanyTypesToSvg: React.FC<CompanyTypesToSvgProps> = ({
       return <Kakao_tech className="h-10 w-10" />;
     case CompanyTypes.Netflix:
       return <Netflix className="h-10 w-10" />;
-    case CompanyTypes.Woowahan:
-      return <Woowahan className="h-10 w-10" />;
+    //case CompanyTypes.Woowahan:
+    //return <Woowahan className="h-10 w-10" />;
+    case CompanyTypes.Google_AI:
+      return <Google_AI className="h-10 w-10" />;
+    // case CompanyTypes.Google_Mobile:
+    //   return <Google_Mobile className="h-10 w-10" />;
+    // case CompanyTypes.Google_Web_Cloud:
+    //   return <Google_Web_Cloud className="h-10 w-10" />;
+    case CompanyTypes.Nvidia_ComputerVision:
+      return <Nvidia_ComputerVision className="h-10 w-10" />;
+    case CompanyTypes.Nvidia_Cloud:
+      return <Nvidia_Cloud className="h-10 w-10" />;
+    case CompanyTypes.Naver_D2:
+      return <Naver_D2 className="h-10 w-10" />;
     default:
       return <AvatarFallback>{author[0]}</AvatarFallback>;
   }
