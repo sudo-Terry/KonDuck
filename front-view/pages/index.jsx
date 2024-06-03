@@ -75,26 +75,7 @@ export default function Component() {
       <Header />
       <main className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {data && data.length > 0 ? (
-              data.map((article, index) => (
-                <ArticleCard
-                  key={index}
-                  title={article.title}
-                  subtitle={CompanyTypesLabel[article.company_id]}
-                  author={article.author}
-                  date={formatDate(article.date)}
-                  href={article.url}
-                  thumbnail={article.thumbnail}
-                  blog_name={article.blog_name}
-                  company_type={article.company_id}
-                />
-              ))
-            ) : (
-              <p>No articles found.</p>
-            )}
-          </div>
-          <div className="mt-10">
+          <div className="mt-10 mb-10">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="w-full dark:text-white" variant="outline">
@@ -120,6 +101,25 @@ export default function Component() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {data && data.length > 0 ? (
+              data.map((article, index) => (
+                <ArticleCard
+                  key={index}
+                  title={article.title}
+                  subtitle={CompanyTypesLabel[article.company_id]}
+                  author={article.author}
+                  date={formatDate(article.date)}
+                  href={article.url}
+                  thumbnail={article.thumbnail}
+                  blog_name={article.blog_name}
+                  company_type={article.company_id}
+                />
+              ))
+            ) : (
+              <p>No articles found.</p>
+            )}
           </div>
           <div className="pagination w-full mt-10">
             <Pagination>
