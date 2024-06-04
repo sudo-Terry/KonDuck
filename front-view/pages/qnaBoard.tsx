@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,8 +12,36 @@ import {
 } from "@/components/ui/pagination";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { fetchData } from "@/utils/api";
+
+interface Qna {
+  id: number;
+  title: string;
+  user_name: string;
+}
 
 const QnABoardPage: React.FC = () => {
+  const [qnas, setQnas] = useState<Qna[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const perPage = 5;
+
+  useEffect(() => {
+    async function fetchQnas() {
+      try {
+        const data = await fetchData(
+          `/qna?page=${currentPage}&per_page=${perPage}`
+        );
+        setQnas(data.qnas);
+        setTotalPages(data.meta.total_pages);
+      } catch (error) {
+        console.error("Error fetching QnAs:", error);
+      }
+    }
+    fetchQnas();
+  }, [currentPage]);
+
   return (
     <>
       <Header />
@@ -26,121 +55,94 @@ const QnABoardPage: React.FC = () => {
               </Link>
             </div>
             <div className="space-y-4">
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      How do I set up the Acme Supercharger?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by John Doe
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      What are the best practices for using the Acme Smart
-                      Thermostat?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by Jane Smith
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
+              {qnas.map((qna) => (
+                <div key={qna.id} className="bg-white rounded-lg shadow-sm p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-medium">{qna.title}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Asked by {qna.user_name}
+                      </p>
+                    </div>
+                    <div>
+                      <Link href={`/qnaBoard/${qna.id}`} passHref>
+                        <Button size="sm">View</Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      How do I troubleshoot the Acme Solar Panels?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by Sarah Lee
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      Can I integrate the Acme Smart Thermostat with my existing
-                      home automation system?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by Michael Johnson
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      What are the energy efficiency benefits of the Acme Solar
-                      Panels?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by Emily Davis
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium">
-                      How long do the Acme Solar Panels last?
-                    </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Asked by David Brown
-                    </p>
-                  </div>
-                  <div>
-                    <Link href="/qnaBoard/1" passHref>
-                      <Button size="sm">View</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
-            <div className="flex justify-between w-full mt-10">
+            <div className="flex justify-center mt-10">
               <Pagination>
-                <PaginationContent className="flex justify-between items-center">
+                <PaginationContent className="flex">
+                  {currentPage > 1 && (
+                    <PaginationItem>
+                      <PaginationPrevious
+                        href="#"
+                        onClick={() =>
+                          setCurrentPage((prevPage) => prevPage - 1)
+                        }
+                      />
+                    </PaginationItem>
+                  )}
+                  {currentPage > 3 && <PaginationEllipsis />}
+                  {currentPage > 2 && (
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#"
+                        onClick={() => setCurrentPage(currentPage - 2)}
+                      >
+                        {currentPage - 2}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+                  {currentPage > 1 && (
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#"
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                      >
+                        {currentPage - 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
                   <PaginationItem>
-                    <PaginationPrevious href="#" />
+                    <PaginationLink className="bg-blue-500 text-white" href="#">
+                      {currentPage}
+                    </PaginationLink>
                   </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
-                  </PaginationItem>
+                  {currentPage < totalPages && (
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#"
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                      >
+                        {currentPage + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+                  {currentPage < totalPages - 1 && (
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#"
+                        onClick={() => setCurrentPage(currentPage + 2)}
+                      >
+                        {currentPage + 2}
+                      </PaginationLink>
+                    </PaginationItem>
+                  )}
+                  {currentPage < totalPages - 2 && <PaginationEllipsis />}
+                  {currentPage < totalPages && (
+                    <PaginationItem>
+                      <PaginationNext
+                        href="#"
+                        onClick={() =>
+                          setCurrentPage((prevPage) => prevPage + 1)
+                        }
+                      />
+                    </PaginationItem>
+                  )}
                 </PaginationContent>
               </Pagination>
             </div>
