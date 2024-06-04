@@ -4,9 +4,10 @@ module Api
 
     def index
       @posts = Post.page(params[:page]).per(5)
+      posts_with_comments_count = @posts.map { |post| post.as_json.merge(comment_count: post.comment_count) }
 
       render json: {
-        posts: @posts,
+        posts: posts_with_comments_count,
         meta: {
           current_page: @posts.current_page,
           total_pages: @posts.total_pages,
