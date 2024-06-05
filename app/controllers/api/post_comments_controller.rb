@@ -48,43 +48,15 @@ module Api
 
       def like
         comment = PostComment.find(params[:id])
-        user_vote = UserVote.find_by(post_comment: comment, user_name: params[:user_name])
-  
-        if user_vote
-          if user_vote.vote_type == "like"
-            render json: { message: "You have already liked this comment." }, status: :unprocessable_entity
-          else
-            user_vote.update(vote_type: "like")
-            comment.increment!(:likes)
-            comment.decrement!(:dislikes)
-            render json: comment
-          end
-        else
-          UserVote.create(post_comment: comment, user_name: params[:user_name], vote_type: "like")
-          comment.increment!(:likes)
-          render json: comment
-        end
+        comment.increment!(:likes)
+        render json: comment
       end
   
       def dislike
         comment = PostComment.find(params[:id])
-        user_vote = UserVote.find_by(post_comment: comment, user_name: params[:user_name])
-  
-        if user_vote
-          if user_vote.vote_type == "dislike"
-            render json: { message: "You have already disliked this comment." }, status: :unprocessable_entity
-          else
-            user_vote.update(vote_type: "dislike")
-            comment.increment!(:dislikes)
-            comment.decrement!(:likes)
-            render json: comment
-          end
-        else
-          UserVote.create(post_comment: comment, user_name: params[:user_name], vote_type: "dislike")
-          comment.increment!(:dislikes)
-          render json: comment
-        end
-      end
+        comment.increment!(:dislikes)
+        render json: comment
+      end  
   
       def comment_params
         params.permit(:content, :user_name, :user_password)
