@@ -3,7 +3,7 @@ module Api
       skip_before_action :verify_authenticity_token
   
       def index
-        post = Post.find(params[:post_id])
+        post = Post.find(params[:board_id])
         render json: post.post_comments
       end
       
@@ -14,7 +14,7 @@ module Api
       end
       
       def create
-        post = Post.find(params[:post_id])
+        post = Post.find(params[:board_id])
         comment = post.post_comments.build(comment_params)
         if comment.save
           render json: comment, status: :created
