@@ -5,12 +5,7 @@ Rails.application.routes.draw do
       resources :qna_answers, only: [:index, :show, :create, :update, :destroy]
     end
     resources :board, only: [:index, :new, :create, :show, :update, :destroy] do
-      resources :post_comments, only: [:index, :new, :create, :show, :update, :destroy] do
-        member do
-          post 'like'
-          post 'dislike'
-        end
-      end
+      resources :post_comments, only: [:index, :new, :create, :show, :update, :destroy]
     end
   end
 end
