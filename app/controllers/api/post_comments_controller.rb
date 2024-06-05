@@ -45,8 +45,18 @@ module Api
           render json: comment.errors, status: :unprocessable_entity
         end
       end
+
+      def like
+        comment = PostComment.find(params[:id])
+        comment.increment!(:likes)
+        render json: comment
+      end
   
-      private
+      def dislike
+        comment = PostComment.find(params[:id])
+        comment.increment!(:dislikes)
+        render json: comment
+      end  
   
       def comment_params
         params.permit(:content, :user_name, :user_password)
