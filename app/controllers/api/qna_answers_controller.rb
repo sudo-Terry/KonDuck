@@ -39,6 +39,43 @@ module Api
           render json: answer.errors, status: :unprocessable_entity
         end
       end
+
+      def like
+        answer = QnaAnswer.find(params[:id])
+        user_vote = UserVote.find_or_create_by(qna_answer: answer, user_name: params[:user_name])
+      
+        if user_vote.persisted? && user_vote.vote_type == "like"
+          render json: { message: "You have already liked this answer." }, status: :unprocessable_entity
+        else
+          if user_vote.vote_type != "like"
+            user_vote.update(vote_type: "like")
+            answer.increment!(:likes)
+            answer.decrement!(:dislikes) if user_vote.vote_type_was == "dislike"
+          else
+            answer.increment!(:likes)
+          end
+          render json: answer
+        end
+      end
+      
+      def dislike
+        answer = QnaAnswer.find(params[:id])
+        user_vote = UserVote.find_or_create_by(qna_answer: answer, user_name: params[:user_name])
+      
+        if user_vote.persisted? && user_vote.vote_type == "dislike"
+          render json: { message: "You have already disliked this answer." }, status: :unprocessable_entity
+        else
+          if user_vote.vote_type != "dislike"
+            user_vote.update(vote_type: "dislike")
+            answer.increment!(:dislikes)
+            answer.decrement!(:likes) if user_vote.vote_type_was == "like"
+          else
+            answer.increment!(:dislikes)
+          end
+          render json: answer
+        end
+      end
+      
   
       private
   

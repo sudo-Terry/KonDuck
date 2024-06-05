@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_05_054153) do
+ActiveRecord::Schema.define(version: 2024_06_05_065344) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 2024_06_05_054153) do
     t.string "user_password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes"
+    t.integer "dislikes"
   end
 
   create_table "qnas", force: :cascade do |t|
