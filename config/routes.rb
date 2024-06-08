@@ -6,6 +6,7 @@ Rails.application.routes.draw do
         member do
           post 'like'
           post 'dislike'
+          post 'select_answer'
         end
       end
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_05_065344) do
+ActiveRecord::Schema.define(version: 2024_06_05_125318) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2024_06_05_065344) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "likes"
     t.integer "dislikes"
+    t.boolean "selected", default: false
   end
 
   create_table "qnas", force: :cascade do |t|

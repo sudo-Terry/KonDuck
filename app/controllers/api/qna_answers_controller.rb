@@ -75,6 +75,19 @@ module Api
           render json: answer
         end
       end
+
+      def select_answer
+        qna = Qna.find(params[:qna_id])
+        answer = qna.qna_answers.find(params[:id])
+  
+        if qna.user_name == params[:user_name]
+          qna.qna_answers.update_all(selected: false) 
+          answer.update(selected: true)
+          render json: { message: "Answer selected successfully." }, status: :ok
+        else
+          render json: { message: "Only the question owner can select an answer." }, status: :forbidden
+        end
+      end
       
   
       private
