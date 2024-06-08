@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_30_173144) do
+ActiveRecord::Schema.define(version: 2024_06_05_054153) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 2024_05_30_173144) do
     t.string "user_password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes", default: 0
+    t.integer "dislikes", default: 0
     t.index ["post_id"], name: "index_post_comments_on_post_id"
   end
 
@@ -70,7 +72,17 @@ ActiveRecord::Schema.define(version: 2024_05_30_173144) do
     t.string "user_password"
   end
 
+  create_table "user_votes", force: :cascade do |t|
+    t.integer "post_comment_id", null: false
+    t.string "user_name"
+    t.string "vote_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_comment_id"], name: "index_user_votes_on_post_comment_id"
+  end
+
   add_foreign_key "articles", "companies"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "qna_answers", "qnas"
+  add_foreign_key "user_votes", "post_comments"
 end

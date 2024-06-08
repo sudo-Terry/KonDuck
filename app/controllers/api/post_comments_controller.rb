@@ -45,8 +45,39 @@ module Api
           render json: comment.errors, status: :unprocessable_entity
         end
       end
-  
-      private
+
+      def like
+        comment = PostComment.find(params[:id])
+        user_vote = UserVote.find_or_create_by(post_comment: comment, user_name: params[:user_name]) do |vote|
+          vote.vote_type = "like"
+        end
+      
+        if user_vote.persisted? && user_vote.vote_type == "like"
+          render json: { message: "You have already liked this comment." }, status: :unprocessable_entity
+        else
+          user_vote.update(vote_type: "like") if user_vote.vote_type != "like"
+          comment.increment!(:likes)
+          comment.decrement!(:dislikes) if user_vote.vote_type_was == "dislike"
+          render json: comment
+        end
+      end
+      
+      def dislike
+        comment = PostComment.find(params[:id])
+        user_vote = UserVote.find_or_create_by(post_comment: comment, user_name: params[:user_name]) do |vote|
+          vote.vote_type = "dislike"
+        end
+      
+        if user_vote.persisted? && user_vote.vote_type == "dislike"
+          render json: { message: "You have already disliked this comment." }, status: :unprocessable_entity
+        else
+          user_vote.update(vote_type: "dislike") if user_vote.vote_type != "dislike"
+          comment.increment!(:dislikes)
+          comment.decrement!(:likes) if user_vote.vote_type_was == "like"
+          render json: comment
+        end
+      end
+      
   
       def comment_params
         params.permit(:content, :user_name, :user_password)
