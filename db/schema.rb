@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_05_125318) do
+ActiveRecord::Schema.define(version: 2024_06_08_072125) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -81,11 +81,14 @@ ActiveRecord::Schema.define(version: 2024_06_05_125318) do
     t.string "vote_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "qna_answer_id"
     t.index ["post_comment_id"], name: "index_user_votes_on_post_comment_id"
+    t.index ["qna_answer_id"], name: "index_user_votes_on_qna_answer_id"
   end
 
   add_foreign_key "articles", "companies"
   add_foreign_key "post_comments", "posts"
   add_foreign_key "qna_answers", "qnas"
   add_foreign_key "user_votes", "post_comments"
+  add_foreign_key "user_votes", "qna_answers"
 end

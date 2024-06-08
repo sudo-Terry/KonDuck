@@ -42,36 +42,42 @@ module Api
 
       def like
         answer = QnaAnswer.find(params[:id])
-        user_vote = UserVote.find_or_create_by(qna_answer: answer, user_name: params[:user_name])
-      
-        if user_vote.persisted? && user_vote.vote_type == "like"
-          render json: { message: "You have already liked this answer." }, status: :unprocessable_entity
-        else
-          if user_vote.vote_type != "like"
+        user_name = params[:user_name]
+        user_vote = UserVote.find_by(qna_answer: answer, user_name: user_name)
+  
+        if user_vote
+          if user_vote.vote_type == "like"
+            render json: { message: "You have already liked this answer." }, status: :unprocessable_entity
+          else
             user_vote.update(vote_type: "like")
             answer.increment!(:likes)
-            answer.decrement!(:dislikes) if user_vote.vote_type_was == "dislike"
-          else
-            answer.increment!(:likes)
+            answer.decrement!(:dislikes)
+            render json: answer
           end
+        else
+          UserVote.create(qna_answer: answer, user_name: user_name, vote_type: "like")
+          answer.increment!(:likes)
           render json: answer
         end
       end
       
       def dislike
         answer = QnaAnswer.find(params[:id])
-        user_vote = UserVote.find_or_create_by(qna_answer: answer, user_name: params[:user_name])
-      
-        if user_vote.persisted? && user_vote.vote_type == "dislike"
-          render json: { message: "You have already disliked this answer." }, status: :unprocessable_entity
-        else
-          if user_vote.vote_type != "dislike"
+        user_name = params[:user_name]
+        user_vote = UserVote.find_by(qna_answer: answer, user_name: user_name)
+  
+        if user_vote
+          if user_vote.vote_type == "dislike"
+            render json: { message: "You have already disliked this answer." }, status: :unprocessable_entity
+          else
             user_vote.update(vote_type: "dislike")
             answer.increment!(:dislikes)
-            answer.decrement!(:likes) if user_vote.vote_type_was == "like"
-          else
-            answer.increment!(:dislikes)
+            answer.decrement!(:likes)
+            render json: answer
           end
+        else
+          UserVote.create(qna_answer: answer, user_name: user_name, vote_type: "dislike")
+          answer.increment!(:dislikes)
           render json: answer
         end
       end
