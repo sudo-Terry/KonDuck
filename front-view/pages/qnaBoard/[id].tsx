@@ -104,12 +104,14 @@ const QnADetailPage: React.FC = () => {
                 <>
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold">{qna.title}</h2>
+                    {/*
                     <div>
                       <Button className="mr-2" size="sm" variant="outline">
                         수정
                       </Button>
                       <Button size="sm">삭제</Button>
                     </div>
+                    */}
                   </div>
                   <div className="space-y-4">
                     <div className="flex items-center gap-4">
@@ -167,6 +169,7 @@ const QnADetailPage: React.FC = () => {
                         <div className="prose prose-stone mt-2">
                           <p>{answer.answer}</p>
                         </div>
+                        {/*
                         <div className="flex items-center gap-2 mt-2">
                           <Button
                             className="w-4 h-4 hover:bg-transparent text-stone-400 hover:text-stone-900"
@@ -185,6 +188,7 @@ const QnADetailPage: React.FC = () => {
                             <span className="sr-only">싫어요</span>
                           </Button>
                         </div>
+                        */}
                       </div>
                     </div>
                   ))}
