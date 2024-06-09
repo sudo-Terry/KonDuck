@@ -28,6 +28,7 @@ interface ArticleCardProps {
   thumbnail?: string;
   date: string;
   blog_name: string;
+  blog_mainurl: string;
 }
 
 interface CompanyTypesToSvgProps {
@@ -73,6 +74,7 @@ export function ArticleCard({
   thumbnail,
   date,
   blog_name,
+  blog_mainurl,
 }: ArticleCardProps) {
   return (
     <Card>
@@ -93,25 +95,25 @@ export function ArticleCard({
           {title}
           </Link>
         </CardTitle>
-        <Link href={href}>
-          <CardDescription>
+        
+        <CardDescription>
             {date}
-          </CardDescription>
-        </Link>
+        </CardDescription>
+        
       </CardHeader>
       <div className="flex items-center space-x-4 mb-4">
-        <Link href={href}>
+        <Link href={blog_mainurl}>
           <Avatar className="h-10 w-10 ml-4">
             <CompanyTypesToSvg company_type={company_type} author={author} />
           </Avatar>
         </Link>
         <div>
-          <Link href={href}>
+          <Link href={blog_mainurl}>
             <div className="font-medium">
               {blog_name}
             </div>
           </Link>
-          <Link href={href}>
+          <Link href={blog_mainurl}>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               {author}
             </div>

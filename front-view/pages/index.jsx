@@ -115,6 +115,7 @@ export default function Component() {
                   thumbnail={article.thumbnail}
                   blog_name={article.blog_name}
                   company_type={article.company_id}
+                  blog_mainurl={article.url.split("com")[0]+"com"}
                 />
               ))
             ) : (
