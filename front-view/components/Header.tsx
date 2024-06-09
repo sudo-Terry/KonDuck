@@ -34,7 +34,7 @@ export function Header() {
                 className="block px-4 py-2 text-sm hover:bg-gray-800"
                 href="/"
               >
-                메인
+                기사
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
@@ -65,7 +65,7 @@ export function Header() {
           <div className="flex space-x-4">
             <Link href="/" passHref>
               <span className="rounded-md px-3 py-2 text-lg font-medium hover:bg-gray-800 cursor-pointer">
-                메인
+                기사
               </span>
             </Link>
             <Link href="/qnaBoard" passHref>

@@ -78,26 +78,44 @@ export function ArticleCard({
     <Card>
       <CardHeader>
         {thumbnail && (
-          <div className="overflow-hidden mb-3">
-            <img
-              src={thumbnail}
-              alt={title}
-              className="w-full h-auto object-cover max-h-60"
-            />
-          </div>
+          <Link href={href}>
+            <div className="overflow-hidden mb-3">
+              <img
+                src={thumbnail}
+                alt={title}
+                className="w-full h-auto object-cover max-h-60"
+              />
+            </div>
+          </Link>
         )}
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{date}</CardDescription>
+        <CardTitle>
+          <Link href={href}>
+          {title}
+          </Link>
+        </CardTitle>
+        <Link href={href}>
+          <CardDescription>
+            {date}
+          </CardDescription>
+        </Link>
       </CardHeader>
       <div className="flex items-center space-x-4 mb-4">
-        <Avatar className="h-10 w-10 ml-4">
-          <CompanyTypesToSvg company_type={company_type} author={author} />
-        </Avatar>
+        <Link href={href}>
+          <Avatar className="h-10 w-10 ml-4">
+            <CompanyTypesToSvg company_type={company_type} author={author} />
+          </Avatar>
+        </Link>
         <div>
-          <div className="font-medium">{blog_name}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            {author}
-          </div>
+          <Link href={href}>
+            <div className="font-medium">
+              {blog_name}
+            </div>
+          </Link>
+          <Link href={href}>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {author}
+            </div>
+          </Link>
         </div>
       </div>
       <CardFooter>
