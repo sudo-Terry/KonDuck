@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { formatDate } from "@/utils/formDate";
 import { fetchData } from "@/utils/api";
+import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import {
@@ -93,6 +94,11 @@ const FreeBoardPage: React.FC = () => {
                 </div>
               </div>
             ))}
+            <div className="flex justify-end">
+              <Link href={`/freeBoard/writePost`} passHref>
+                <Button size="sm">글쓰기</Button>
+              </Link>
+            </div>
           </div>
           <div className="flex justify-center mt-10">
             <Pagination>
