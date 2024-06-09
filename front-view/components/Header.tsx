@@ -92,9 +92,9 @@ export function Header() {
             type="text"
           />
         </div>
-        <div className="ml-4">
+        {/* <div className="ml-4">
           <Button variant="default">Login</Button>
-        </div>
+        </div> */}
       </div>
     </header>
   );

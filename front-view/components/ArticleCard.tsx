@@ -12,10 +12,10 @@ import { CompanyTypes } from "../enums/CompanyTypes";
 import Kakao_tech from "@/assets/kakao_tech.svg";
 import Netflix from "@/assets/Netflix.svg";
 import Google_AI from "@/assets/GoogleAI.svg";
-import Google_Mobile from "@/assets/GoogleAI.svg";
+import Google_Mobile from "@/assets/GoogleMobile.svg";
 import Google_Web_Cloud from "@/assets/GoogleAI.svg";
 import Nvidia_ComputerVision from "@/assets/Nvidia.svg";
-import Nvidia_Cloud from "@/assets/Nvidia.svg";
+import Nvidia_Cloud from "@/assets/Nvidia_Black.svg";
 import Naver_D2 from "@/assets/naver.svg";
 
 interface ArticleCardProps {
