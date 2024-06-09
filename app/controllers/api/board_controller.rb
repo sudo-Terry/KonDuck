@@ -3,7 +3,7 @@ module Api
     skip_before_action :verify_authenticity_token
 
     def index
-      @posts = Post.page(params[:page]).per(5)
+      @posts = Post.order(created_at: :desc).page(params[:page]).per(5)
       posts_with_comments_count = @posts.map { |post| post.as_json.merge(comment_count: post.comment_count) }
 
       render json: {

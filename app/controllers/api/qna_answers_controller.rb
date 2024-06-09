@@ -4,12 +4,12 @@ module Api
   
       def index
         qna = Qna.find(params[:qna_id])
-        render json: qna.qna_answers
+        render json: qna.qna_answers.order(created_at: :asc)
       end
   
       def show
         answer = QnaAnswer.find(params[:id])
-        render json: answer
+        render json: answer.order(created_at: :asc)
       end
   
       def create

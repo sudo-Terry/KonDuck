@@ -4,7 +4,7 @@ module Api
 
     
     def index
-      @qnas = Qna.page(params[:page]).per(6)
+      @qnas = Qna.order(created_at: :desc).page(params[:page]).per(6)
 
       render json: {
         qnas: @qnas,

@@ -4,7 +4,7 @@ module Api
   
       def index
         post = Post.find(params[:board_id])
-        render json: post.post_comments
+        render json: post.post_comments.order(created_at: :asc)
       end
       
       def new
@@ -24,7 +24,7 @@ module Api
       end
   
       def show
-        comment = PostComment.find(params[:id])
+        comment = PostComment.order(created_at: :asc).find(params[:id])
         render json: comment
       end
   
