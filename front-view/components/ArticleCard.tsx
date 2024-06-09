@@ -48,8 +48,8 @@ const CompanyTypesToSvg: React.FC<CompanyTypesToSvgProps> = ({
     //return <Woowahan className="h-10 w-10" />;
     case CompanyTypes.Google_AI:
       return <Google_AI className="h-10 w-10" />;
-    // case CompanyTypes.Google_Mobile:
-    //   return <Google_Mobile className="h-10 w-10" />;
+    case CompanyTypes.Google_Mobile:
+      return <Google_Mobile className="h-10 w-10" />;
     // case CompanyTypes.Google_Web_Cloud:
     //   return <Google_Web_Cloud className="h-10 w-10" />;
     case CompanyTypes.Nvidia_ComputerVision:
