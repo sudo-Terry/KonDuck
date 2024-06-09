@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 2024_06_08_072125) do
     t.string "user_password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "likes"
-    t.integer "dislikes"
+    t.integer "likes", default: 0
+    t.integer "dislikes", default: 0
     t.boolean "selected", default: false
   end
 
