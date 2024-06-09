@@ -125,6 +125,7 @@ const FreeBoardDetailPage: React.FC = () => {
                             {formatDate(comment.created_at)}
                           </div>
                         </div>
+                        {/*
                         <div>
                           <Button size="icon" variant="ghost">
                             <ThumbsUpIcon className="h-5 w-5" />
@@ -135,6 +136,7 @@ const FreeBoardDetailPage: React.FC = () => {
                             <span className="sr-only">Dislike</span>
                           </Button>
                         </div>
+                        */}
                       </div>
                       <div className="mt-2">
                         <p>{comment.content}</p>
