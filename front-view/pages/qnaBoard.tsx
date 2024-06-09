@@ -50,8 +50,11 @@ const QnABoardPage: React.FC = () => {
           <div className="space-y-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Q&A</h2>
-              <Link className="text-indigo-600 hover:text-indigo-900" href="#">
-                Ask a Question
+              <Link
+                className="text-indigo-600 hover:text-indigo-900"
+                href={`/qnaBoard/writePost`}
+              >
+                잘문 등록하기
               </Link>
             </div>
             <div className="space-y-4">
